@@ -14,7 +14,7 @@ function Export-Headers {
         [string]$Src="src\main\java",
 
         [Parameter(Mandatory=$false, HelpMessage="Destination dir")]
-        [string]$Destination="src\main\native\src"
+        [string]$Destination="target\native\javah"
     )
         
     function New-TemporaryDirectory {
@@ -24,10 +24,17 @@ function Export-Headers {
     }
 
     function Resolve-Path-Relative($BasePath, $ResolvePath) {
-        if ([System.IO.Path]::IsPathRooted("$ResolvePath")) {
-            return (Get-Item $ResolvePath).FullName
+        $resolvedPath = $ResolvePath
+        if (-not [System.IO.Path]::IsPathRooted("$ResolvePath")) {
+            $resolvedPath = Join-Path $BasePath $ResolvePath
         }
-        Return (Get-Item (Join-Path $BasePath $ResolvePath)).FullName
+        $resolvedItem = (Get-Item $resolvedPath -ErrorAction SilentlyContinue).FullName
+        
+        if ($null -ne $resolvedItem) {
+            return $resolvedItem
+        } else {
+            return $resolvedPath
+        }
     }
 
     function Get-MavenDependency($Group, $Artifact, $Version, $Destination) {
@@ -53,9 +60,8 @@ function Export-Headers {
     }
 
 
-    $Src = Resolve-Path-Relative $Project $Src
-    $Destination = Resolve-Path-Relative $Project $Destination
-    $HeaderDestination = New-Item -Path (Join-Path $Destination "jni") -ItemType Directory -Force
+    $Src = Get-Item -Path (Resolve-Path-Relative $Project $Src)
+    $Destination = New-Item -Path (Resolve-Path-Relative $Project $Destination) -ItemType Directory -Force
 
 
     Write-Host "Generating JNI headers for '$Project' and placing them in '$Destination'"
@@ -82,7 +88,7 @@ function Export-Headers {
         Write-Host "Generate headers for '$JniFile'"
         javac -cp "$DependencyDir\*" -h "$HeaderDir" -d "$ClassDir" "$JniFile"
     }
-    Get-ChildItem -Path $HeaderDir | Where-Object {$_.Name -like "*.h"} | Copy-Item -Destination $HeaderDestination
+    Get-ChildItem -Path $HeaderDir | Where-Object {$_.Name -like "*.h"} | Copy-Item -Destination $Destination
 
     Remove-Item -Path "$WorkDir" -Recurse -Force
     Pop-Location
