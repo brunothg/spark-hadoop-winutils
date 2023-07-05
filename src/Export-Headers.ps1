@@ -93,5 +93,3 @@ function Export-Headers {
     Remove-Item -Path "$WorkDir" -Recurse -Force
     Pop-Location
 }
-
-Export-Headers -Project "D:\Workspaces\git\hadoop\hadoop-common-project\hadoop-common"
