@@ -6,7 +6,7 @@ This was/is necessary, because of the lack of the winutils in official donwloads
 ## Installation
 Download a release matching the bundled Hadoop version ([Winutils](https://github.com/brunothg/spark-hadoop-winutils/tree/winutils) or [Releases](https://github.com/brunothg/spark-hadoop-winutils/releases)).
 The Hadoop version Spark comes with can be found in the included `RELEASE` file.
-Then place the downloaded `hadoob` folder (must contain the bin folder) on your local drive and set the `HADOOP_HOME` environment variable acordingly.
+Then place the downloaded `hadoop` folder (must contain the bin folder) on your local drive and set the `HADOOP_HOME` environment variable acordingly.
 
 ## Notice
 I build these in my free time and for my own purposes.
