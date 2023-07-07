@@ -3,6 +3,15 @@ Hadoop winutils dependencies for Spark on Windows.
 The main reason for this repository is to enable the usage of [Spark](https://spark.apache.org/downloads.html) on Windows.
 This was/is necessary, because of the lack of the winutils in official donwloads.
 
+## Build-Requirements
+ - JDK (tested with Adoptium JDK 11)
+ - Git
+ - Powershell
+ - Visual Studio (Community is enough - tested with 2022)
+
+## Build
+TODO build instructions
+
 ## Installation
 Download a release matching the bundled Hadoop version.
 The Hadoop version Spark comes with can be found in the included `RELEASE` file.
