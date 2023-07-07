@@ -1,4 +1,4 @@
-function Export-Headers {
+function Get-Hadoop {
     <#
         .SYNOPSIS
             Fetches a specific hadoop repository version
