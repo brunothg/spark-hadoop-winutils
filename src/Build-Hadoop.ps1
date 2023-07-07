@@ -71,6 +71,3 @@ function Build-Hadoop {
     Open-Explorer -Path $BinDir
 
 }
-
-# TODO rm test
-Build-Hadoop -Version "3.3.3"
