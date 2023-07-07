@@ -10,7 +10,18 @@ This was/is necessary, because of the lack of the winutils in official donwloads
  - Visual Studio (Community is enough - tested with 2022)
 
 ## Build
-TODO build instructions
+Run Build-Hadoop and follow instructions.
+
+    > powershell
+    . Build-Hadoop.ps
+    Build-Hadoop -Version 3.3.2
+
+You may need to set preprocessor variables:
+
+    WSCE_CONFIG_DIR="../etc/hadoop"
+    WSCE_CONFIG_FILE="wsce-site.xml"
+
+The exact values can be extracted from projects `pom.xml`.
 
 ## Installation
 Download a release matching the bundled Hadoop version ([Winutils](https://github.com/brunothg/spark-hadoop-winutils/tree/winutils) or [Releases](https://github.com/brunothg/spark-hadoop-winutils/releases)).
